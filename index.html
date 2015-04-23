@@ -10,6 +10,11 @@ body{
   background-color: #000;
   color: #FFF;
 }
+#header{
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+}
 </style>
 <script>
   var socket = io();
@@ -52,6 +57,12 @@ body{
 
 </script>
 <body>
+<div id="header">
+<h2>DEBUG"</h2>
+
+<input type="text" name="search" id="search" placeholder="search" />
+<input type="submit" name="submit" value="search" onclick="javascript:getData()" />
+</div>
 <div id="form">
 <table>
 <tr><td>
@@ -66,10 +77,6 @@ body{
 <input type="submit" name="submit" onclick="javascript:sendMessage()" /></td></tr>
 </table>
 </div>
-<div id="">
-<input type="text" name="search" id="search" placeholder="search" /><br />
-<input type="submit" name="submit" value="search" onclick="javascript:getData()" />
-</div><br /><br />
 <a onclick="javascript:getData();">click</a>
 <div id="tableRes">
 
