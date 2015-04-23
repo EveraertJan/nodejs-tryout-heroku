@@ -59,6 +59,13 @@ h2{
       $("#search").val("");
   }
 
+  $('#search').keypress(function (e) {
+  if (e.which == 13) {
+    getData();
+    return false;    //<---- Add this line
+  }
+});
+
 
   socket.on('tableResult', function(data){
     console.dir(data);
@@ -83,7 +90,7 @@ h2{
 <body>
 <div id="header">
 <h2>DEBUG</h2>
-<input type="text" name="search" id="search" placeholder="search" onblur="javascript:getData()"  />
+<input type="text" name="search" id="search" placeholder="search"  />
 </div>
 <div id="inputform">
 <table>
