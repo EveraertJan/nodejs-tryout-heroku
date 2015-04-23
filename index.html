@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<head>
+<title>tracking tweets</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>  
+</head>
+<script src="/socket.io/socket.io.js"></script>
+<style>
+
+body{
+  background-color: #000;
+  color: #FFF;
+}
+</style>
+<script>
+  var socket = io();
+  function sendMessage(){
+    socket.emit('dataEntry', {'nam': $('#nam').val(), 'bug': $('#bug').val(), 'sym': $('#sym').val(), 'fix': $('#fix').val(), 'key': $('#key').val()});
+    $("#nam").val("");
+    $("#bug").val("");
+    $("#sym").val("");
+    $("#fix").val("");
+    $("#key").val("");
+    getData();
+    return false;
+  }
+
+  function getData(){
+    socket.emit('getData', {'terms': $("#search").val()});
+      return false;
+      $("#search").val("");
+  }
+
+
+  socket.on('tableResult', function(data){
+    console.dir(data);
+    if(data!=null){
+      $('#tableRes').html("");
+    for(var i = 0; i<data.length; i++){
+      var t = "";
+      t+=data[i].name;
+      t+=" | ";
+      t+=data[i].sym;
+      t+=" | ";
+      t+=data[i].fix;
+      t+=" | ";
+      t+=data[i].keywords;
+      t+="<br />";
+      $('#tableRes').append(t);
+    }
+  }
+  })
+
+</script>
+<body>
+<div id="form">
+<table>
+<tr><td>
+<input type="text" name="nam" id="nam" placeholder="name" /></td></tr>
+<tr><td>
+<input type="text" name="sym" id="sym" placeholder="symptoms" /></td></tr>
+<tr><td>
+<input type="text" name="fix" id="fix" placeholder="fix" /></td></tr>
+<tr><td>
+<input type="text" name="key" id="key" placeholder="keywords (separated by ;)" /></td></tr>
+<tr><td>
+<input type="submit" name="submit" onclick="javascript:sendMessage()" /></td></tr>
+</table>
+</div>
+<div id="">
+<input type="text" name="search" id="search" placeholder="search" /><br />
+<input type="submit" name="submit" value="search" onclick="javascript:getData()" />
+</div><br /><br />
+<a onclick="javascript:getData();">click</a>
+<div id="tableRes">
+
+</div>
+</body>
+</html>
