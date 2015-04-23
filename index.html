@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <head>
-<title>tracking tweets</title>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>  
+  <title>tracking tweets</title>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>  
 </head>
 <script src="/socket.io/socket.io.js"></script>
 <style>
 
-body{
-  background-color: #000;
-  color: #FFF;
-  float: left;
-}
-#header{
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-}
-#search{
-  float: left;
-  display: block;
-  height: 50px;
-  width: 450px;
-  border: 0px 0px 1px 0px solid #EEE;
-}
-h2{
-  display: block;
-  float: left;
-  font-size: 14pt;
-  width: 150px;
-  margin-right: 100px;
-}
-#tableRes{
-  float: left;
-  margin-left: 250px;
-  margin-top: 100px;
-}
-#inputform{
-  display: none;
+  body{
+    background-color: #000;
+    color: #FFF;
+    float: left;
+  }
+  #header{
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+  }
+  #search{
+    float: left;
+    display: block;
+    height: 50px;
+    width: 450px;
+    border: 0px 0px 1px 0px solid #EEE;
+  }
+  h2{
+    display: block;
+    float: left;
+    font-size: 14pt;
+    width: 150px;
+    margin-right: 100px;
+  }
+  #tableRes{
+    float: left;
+    margin-left: 250px;
+    margin-top: 100px;
+  }
+  #inputform{
+    display: none;
 
-}
+  }
 </style>
 <script>
   var socket = io();
@@ -55,61 +55,62 @@ h2{
 
   function getData(){
     socket.emit('getData', {'terms': $("#search").val()});
-      return false;
-      $("#search").val("");
+    return false;
+    $("#search").val("");
   }
 
-});
 
 
   socket.on('tableResult', function(data){
     console.dir(data);
     if(data!=null){
       $('#tableRes').html("");
-    for(var i = 0; i<data.length; i++){
-      var t = "";
-      t+=data[i].name;
-      t+=" | ";
-      t+=data[i].sym;
-      t+=" | ";
-      t+=data[i].fix;
-      t+=" | ";
-      t+=data[i].keywords;
-      t+="<br />";
-      $('#tableRes').append(t);
+      for(var i = 0; i<data.length; i++){
+        var t = "";
+        t+=data[i].name;
+        t+=" | ";
+        t+=data[i].sym;
+        t+=" | ";
+        t+=data[i].fix;
+        t+=" | ";
+        t+=data[i].keywords;
+        t+="<br />";
+        $('#tableRes').append(t);
+      }
     }
-  }
   })
 
-  
+
   $('#search').keypress(function (e) {
-  if (e.which == 13) {
-    getData();
-    return false;    //<---- Add this line
-  }
+    if (e.which == 13) {
+      getData();
+      return false;    
+    }
+
+  }); 
 
 </script>
 <body>
-<div id="header">
-<h2>DEBUG</h2>
-<input type="text" name="search" id="search" placeholder="search"  />
-</div>
-<div id="inputform">
-<table>
-<tr><td>
-<input type="text" name="nam" id="nam" placeholder="name" /></td></tr>
-<tr><td>
-<input type="text" name="sym" id="sym" placeholder="symptoms" /></td></tr>
-<tr><td>
-<input type="text" name="fix" id="fix" placeholder="fix" /></td></tr>
-<tr><td>
-<input type="text" name="key" id="key" placeholder="keywords (separated by ;)" /></td></tr>
-<tr><td>
-<input type="submit" name="submit" onclick="javascript:sendMessage()" /></td></tr>
-</table>
-</div>
-<div id="tableRes">
+  <div id="header">
+    <h2>DEBUG</h2>
+    <input type="text" name="search" id="search" placeholder="search"  />
+  </div>
+  <div id="inputform">
+    <table>
+      <tr><td>
+        <input type="text" name="nam" id="nam" placeholder="name" /></td></tr>
+        <tr><td>
+          <input type="text" name="sym" id="sym" placeholder="symptoms" /></td></tr>
+          <tr><td>
+            <input type="text" name="fix" id="fix" placeholder="fix" /></td></tr>
+            <tr><td>
+              <input type="text" name="key" id="key" placeholder="keywords (separated by ;)" /></td></tr>
+              <tr><td>
+                <input type="submit" name="submit" onclick="javascript:sendMessage()" /></td></tr>
+              </table>
+            </div>
+            <div id="tableRes">
 
-</div>
-</body>
-</html>
+            </div>
+          </body>
+          </html>
