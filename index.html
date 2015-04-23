@@ -59,11 +59,6 @@ h2{
       $("#search").val("");
   }
 
-  $('#search').keypress(function (e) {
-  if (e.which == 13) {
-    getData();
-    return false;    //<---- Add this line
-  }
 });
 
 
@@ -85,6 +80,13 @@ h2{
     }
   }
   })
+
+  
+  $('#search').keypress(function (e) {
+  if (e.which == 13) {
+    getData();
+    return false;    //<---- Add this line
+  }
 
 </script>
 <body>
