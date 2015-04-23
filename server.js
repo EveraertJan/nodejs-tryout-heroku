@@ -68,7 +68,6 @@ io.on('connection', function(socket){
             if(result.rows != null){
               for(var i = result.rows.length-1; i>=0; i--){
                 var toSearch =JSON.stringify(result.rows[i]);
-                toSearch = toSearch.replace("bug", "");
                 toSearch = toSearch.replace("fix", "");
                 toSearch = toSearch.replace("sym", "");
                 toSearch = toSearch.replace("id", "");
@@ -118,12 +117,12 @@ io.on('formInput', function(data){
 
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
     var tw = data;
-    client.query('INSERT INTO tweets (id, tweet, date) VALUES (00,\''+tw+'\', \'date\') ', function(err, result) {
+/*    client.query('INSERT INTO tweets (id, tweet, date) VALUES (00,\''+tw+'\', \'date\') ', function(err, result) {
       done();
       if (err)
        { console.error(err); }
 
-   });
+  */ });
   });
 })
 
