@@ -13,8 +13,6 @@ var Twitter = require('node-tweet-stream')
 })
 t.track(process.env.TRACK)
 
-
-
 var port = Number(process.env.PORT || 3000)
 var dbres;
 
